@@ -13,10 +13,10 @@
             // Checking if Web3 has been injected by the browser (Mist/MetaMask)
             if (typeof web3 !== 'undefined') {
                 // Use Mist/MetaMask's provider
-                $('#content').test('I has web3!!!');
+                $('#content').text('I has web3!!!');
                 window.web3 = new Web3(web3.currentProvider);
             } else {
-                $('#content').test('I doesn\'t has web3 :(')
+                $('#content').text('I doesn\'t has web3 :(')
                 console.log('No web3? You should consider trying MetaMask!')
                 // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
                 window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
