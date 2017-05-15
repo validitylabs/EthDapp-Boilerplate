@@ -13,7 +13,7 @@
             // Checking if Web3 has been injected by the browser (Mist/MetaMask)
             if (typeof web3 !== 'undefined') {
                 // Use Mist/MetaMask's provider
-                $('#content').test('I has web3!!!')
+                $('#content').test('I has web3!!!');
                 window.web3 = new Web3(web3.currentProvider);
             } else {
                 $('#content').test('I doesn\'t has web3 :(')
