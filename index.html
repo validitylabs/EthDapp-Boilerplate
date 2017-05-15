@@ -2,23 +2,29 @@
     <head>
         <title>web3 test</title>
         <script src="jquery-3.2.1.js"></script>
+        <script src="custom.js"></script>
     </head>
     <body>
         <h1>Welcome to web3 looking like web1!</h1>
         <div id="content">Can I has web3?!</div>
         <script>
-            $(function() {
-                //window.setTimeout(function() {
-                    if (web3 == undefined) {
-                        $("#content").text("I doesnt has web3 :(");
-                        console.log("not has");
-                    }
-                    else {
-                        $("#content").text("I has web3!");
-                        console.log("has");
-                    }
-                //}, 10);
-            });
+            window.addEventListener('load', function() {
+
+            // Checking if Web3 has been injected by the browser (Mist/MetaMask)
+            if (typeof web3 !== 'undefined') {
+                // Use Mist/MetaMask's provider
+                window.web3 = new Web3(web3.currentProvider);
+            } else {
+                alert('No web3? You should consider trying MetaMask!')
+                // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
+                window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+            }
+
+            // Now you can start your app & access web3 freely:
+
+            // do whatever you want to here!
+
+            })
         </script>
     </body>
 </html>
