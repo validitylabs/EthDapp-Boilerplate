@@ -9,11 +9,15 @@
         <script>
             $(function() {
                 window.setTimeout(function() {
-                    if (web3 === undefined)
+                    if (web3 == undefined) {
                         $("#content").text("I doesnt has web3 :(");
-                    else
+                        console.log("not has");
+                    }
+                    else {
                         $("#content").text("I has web3!");
-                }, 2000);
+                        console.log("has");
+                    }
+                }, 10);
             });
         </script>
     </body>
