@@ -1,4 +1,4 @@
-$(function() {
+$(window).on('load', function() {
     
     var contractAddress = "0x57b005EffEd29DFE55EAC92A6833E5328787eD83"; // in Rinkeby testnet!
     var contractAbi = [{"constant":false,"inputs":[{"name":"s","type":"string"}],"name":"setGreeting","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"getGreeting","outputs":[{"name":"s","type":"string"}],"payable":false,"type":"function"}];
