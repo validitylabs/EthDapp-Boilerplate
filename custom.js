@@ -76,4 +76,3 @@ function cb(error, response) {
     // callback as helper function for debugging purposes
     console.log('error: ' + error + ', response: ' + response);
 }
-
