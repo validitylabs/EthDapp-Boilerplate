@@ -1,7 +1,36 @@
 $(window).on('load', function() {
     
-    var contractAddress = "0x57b005EffEd29DFE55EAC92A6833E5328787eD83"; // in Rinkeby testnet!
-    var contractAbi = [{"constant":false,"inputs":[{"name":"s","type":"string"}],"name":"setGreeting","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"getGreeting","outputs":[{"name":"s","type":"string"}],"payable":false,"type":"function"}];
+    var contractAddress = "0xb7C6361eC0323AA8A4Cf718Ecc99b679Fa8551e1"; // in Rinkeby testnet!
+    var contractAbi = [
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getGreeting",
+		"outputs": [
+			{
+				"name": "s",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "s",
+				"type": "string"
+			}
+		],
+		"name": "setGreeting",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+];
 
     // Checking if Web3 has been injected by the browser (Mist/MetaMask)
     if (typeof web3 !== 'undefined') {
@@ -42,3 +71,8 @@ $(window).on('load', function() {
     });
 
 });
+
+function cb(error, response) {
+    // callback as helper function for debugging purposes
+    console.log('error: ' + error + ', response: ' + response);
+}
