@@ -1,4 +1,4 @@
-pragma solidity ^0.4.12;
+pragma solidity ^0.4.18;
 
 /*
    a simple introduction smart contract
@@ -9,12 +9,12 @@ contract Hello {
     string greeting;
     
     // setter function
-    function setGreeting (string s) {
+    function setGreeting(string s) {
         greeting = s;
     }
     
     // getter function
-    function getGreeting () constant returns (string s) {
+    function getGreeting() view returns (string s) {
         s = greeting;
     }
 }
