@@ -1,26 +1,12 @@
 $(window).on('load', function() {
     
-    var contractAddress = "0x563b01e18316d1e85c320335b1360c25648af12d"; // in Ropsten testnet!
+    var contractAddress = "0x9112f6759f24db5a641d356aaf9053b67e85e79c"; // on Ropsten testnet!
     var contractAbi = [
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getGreeting",
-		"outputs": [
-			{
-				"name": "s",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
 	{
 		"constant": false,
 		"inputs": [
 			{
-				"name": "s",
+				"name": "newGreeting",
 				"type": "string"
 			}
 		],
@@ -29,6 +15,46 @@ $(window).on('load', function() {
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "greeting",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getGreeting",
+		"outputs": [
+			{
+				"name": "g",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "",
+				"type": "string"
+			}
+		],
+		"name": "GotGreeting",
+		"type": "event"
 	}
 ];
 
@@ -46,6 +72,8 @@ $(window).on('load', function() {
     
     // create instance of contract object that we use to interface the smart contract
     var contractInstance = web3.eth.contract(contractAbi).at(contractAddress);
+	
+    // get last greeting on page load by calling the `view` function `getGreeting`
     contractInstance.getGreeting(function(error, greeting) {
         if (error) {
             var errorMsg = 'error reading greeting from smart contract: ' + error;
@@ -56,9 +84,12 @@ $(window).on('load', function() {
         $('#content').text('greeting from contract: ' + greeting);
     });
     
+    // use HTML form with submit button to write data into the blockchain
     $('#my-form').on('submit', function(e) {
         e.preventDefault(); // cancel the actual submit
-        var newGreeting = $('#greeting').val(); 
+        var newGreeting = $('#greeting').val(); // read data that we want to write into the blockchain
+
+	// here we write into the blockchain
         contractInstance.setGreeting(newGreeting, function(error, txHash) {
             if (error) {
                 var errorMsg = 'error writing new greeting to smart contract: ' + error;
@@ -68,6 +99,17 @@ $(window).on('load', function() {
             }
             $('#content').text('submitted new greeting to blockchain, transaction hash: ' + txHash);
         });
+    });
+
+    // on page load we query all past events and write them to a text 
+    contractInstance.GotGreeting({}).watch(function(error, data) {
+	console.log('got event!');
+	if (error)
+	    console.log('Error in event handler: ' + error);
+	else {
+	    console.log('got event data: ' + data);
+	    $('#pastGreetings').append(JSON.stringify(data));
+	}
     });
 
 });
