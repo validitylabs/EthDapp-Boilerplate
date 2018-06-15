@@ -102,7 +102,7 @@ $(window).on('load', function() {
     });
 
     // on page load we query all past events and write them to a text 
-    contractInstance.GotGreeting({}).watch(function(error, data) {
+    contractInstance.GotGreeting({}, { fromBlock: 0, toBlock: 'latest' }).watch(function(error, data) {
 	console.log('got event!');
 	if (error)
 	    console.log('Error in event handler: ' + error);
